@@ -40,6 +40,10 @@ export default function TextForm(props) {
         setText(event.target.value);
     }
     
+    const handleCopy = () => {
+        navigator.clipboard.writeText(text);
+        props.showAlert("Copied to Clipbord!", "success");
+    }
     return (
         <>
             <div className='container' style = {{color: props.mode ==='dark' ? 'white':'black'}}>
@@ -52,11 +56,12 @@ export default function TextForm(props) {
                 <button disabled={text.length===0} className='btn btn-primary mx-2 my-2' onClick={handleLowClick}>Convert to Lowercase</button>
                 <button disabled={text.length===0} className='btn btn-primary mx-2 my-2' onClick={handleClearText}>Clear Text</button>
                 <button disabled={text.length===0} className='btn btn-primary mx-2 my-2' onClick={handleCpFletter}>Capitalize First letter </button>
+                <button disabled={text.length===0} className='btn btn-primary mx-2 my-2' onClick={handleCopy}>Copy Text </button>
             </div>
 
             <div className='container' style = {{color: props.mode ==='dark' ? 'white':'black'}}>
                 <h2>Your text summary</h2>
-                <p>{text.split(" ").filter((element)=>{return element.length !==0}).length} words and {text.length} characters</p>
+                <p>{text.split(/\s+/).filter((element)=>{return element.length !==0}).length} words and {text.length} characters</p>
                 <p>{0.008 * text.split(" ").filter((element)=>{return element.length !==0}).length} Minutes read</p>
                 <h2>Text Preview</h2>
                 <p>{text}</p>
